@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from azure.storage.blob import BlockBlobService
 import string, random
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from flask import flash
 
 blob_container = app.config['BLOB_CONTAINER']
@@ -44,6 +44,10 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
     def save_changes(self, form, file, userId, new=False):
         self.title = form.title.data
