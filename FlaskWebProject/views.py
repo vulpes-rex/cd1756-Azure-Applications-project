@@ -53,9 +53,11 @@ def post(id):
             post.save_changes(form, request.files['image_path'], current_user.id)
             return redirect(url_for('home'))
         if form.delete.data:
-            post = Post.query.get(int(id))
             post.delete()
             return redirect(url_for('home'))
+        if form.delete_image.data:
+            post.delete_image()
+            return redirect(url_for('post', id=int(id)))
     return render_template(
         'post.html',
         title='Edit Post',

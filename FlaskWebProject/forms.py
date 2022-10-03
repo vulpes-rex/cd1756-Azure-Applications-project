@@ -13,7 +13,10 @@ class LoginForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
+    subtitle = StringField('Subtitle')
     author = StringField('Author', validators=[DataRequired()])
     body = TextAreaField('Body', validators=[DataRequired()])
     image_path = FileField('Image', validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
     submit = SubmitField('Save')
+    delete = SubmitField('Delete')
+    delete_image = SubmitField('Delete Image')
